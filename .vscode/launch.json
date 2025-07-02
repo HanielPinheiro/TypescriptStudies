@@ -5,8 +5,8 @@
       "type": "node",
       "request": "launch",
       "name": "Debug TypeScript",
-      "program": "${workspaceFolder}/Tutorial_TraversyMedia/build/index.js",
-      "outFiles": ["${workspaceFolder}/Tutorial_TraversyMedia/build/**/*.js"],
+      "program": "${workspaceFolder}/Tutorial_FreeCodeCamp/build/index.js",
+      "outFiles": ["${workspaceFolder}/Tutorial_FreeCodeCamp/build/**/*.js"],
       "sourceMaps": true,
     }
   ]
