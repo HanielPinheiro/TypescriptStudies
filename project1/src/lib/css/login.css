@@ -1,13 +1,3 @@
-.imgLogin {
-  background-image: url("/assets/login/MaisGostei.jpeg");
-  background-size: cover;
-  background-position: top;
-  background-repeat: no-repeat;
-  background-attachment: local;
-  background-color: #333;
-  background-position-y: -20vh;
-}
-
 .card {
   animation: fadeInUp 0.5s ease-out;
 }

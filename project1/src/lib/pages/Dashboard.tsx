@@ -1,13 +1,13 @@
-import { useAuth } from "../contexts/AuthContext";
-
+import '../css/dashboard.css';
 
 const Dashboard = () => {
-  const { user, logout } = useAuth();
-
   return (
     <div>
-      <h2>Welcome, {user?.username}</h2>
-      <button onClick={logout}>Logout</button>
+      <h2>Página Inicial</h2>
+      <div className="page-content">
+        <h1>Bem-vindo à Dashboard!</h1>
+        <p>Conteúdo da página inicial aqui.</p>
+      </div>
     </div>
   );
 };

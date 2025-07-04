@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (username === 'admin' && password === '123') {
       setUser({ username });
     } else {
-      alert('Invalid credentials');
+      alert('E-mail ou senha inválidos.');
     }
   };
 
@@ -18,11 +18,5 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(null);
   };
 
-  return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
 };
-
-
