@@ -1,5 +1,4 @@
-import { Link /*useLocation*/ } from 'react-router-dom';
-// import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 import { Home, Flame, MessageCircle, HeartHandshake, User, LogOut } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -22,12 +21,7 @@ interface MenuItem {
 }
 
 const Menu = ({ isMobile, toggleMenu }: MenuProps) => {
-  //   const [activePage, setActivePage] = useState<string>('dashboard');
-  //   const location = useLocation();
-  //   useEffect(() => {
-  //     setActivePage(location.pathname);
-  //   }, [location]);
-
+  const location = useLocation();
   const { logout } = useAuth();
 
   const menuItems: MenuItem[] = [
@@ -52,19 +46,22 @@ const Menu = ({ isMobile, toggleMenu }: MenuProps) => {
     <nav className={isMobile ? 'mobile-menu' : 'sidebar'}>
       {!isMobile && <ProfileAvatar />}
       <ul className="menu-list">
-        {menuItems.map((item) => (
-          <li key={item.path} className="menu-item">
-            {item.action ? (
-              <a className="menu-link" onClick={() => handleItemClick(item)} style={{ cursor: 'pointer' }}>
-                <MenuItens icon={item.icon} label={item.label} />
-              </a>
-            ) : (
-              <Link to={item.path} className="menu-link" onClick={() => handleItemClick(item)}>
-                <MenuItens icon={item.icon} label={item.label} />
-              </Link>
-            )}
-          </li>
-        ))}
+        {menuItems.map((item) => {
+          const isActive = !item.action && location.pathname.startsWith(item.path);
+          return (
+            <li key={item.path} className="menu-item">
+              {item.action ? (
+                <a className={`menu-link ${isActive ? 'text-yellow-500 font-bold' : ''}`} onClick={() => handleItemClick(item)} style={{ cursor: 'pointer' }}>
+                  <MenuItens icon={item.icon} label={item.label} />
+                </a>
+              ) : (
+                <Link to={item.path} className={`menu-link ${!item.action && location.pathname.startsWith(item.path) ? 'active' : ''}`} onClick={() => handleItemClick(item)}>
+                  <MenuItens icon={item.icon} label={item.label} />
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

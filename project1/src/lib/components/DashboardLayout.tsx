@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Menu from './Menu';
-import ProfileAvatar from './MenuElements';
-
+import Components from './MenuElements';
+const { ProfileAvatar } = Components;
 const DashboardLayout = () => {
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 800);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);

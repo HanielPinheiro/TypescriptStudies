@@ -80,13 +80,14 @@
 }
 
 .menu-link:hover {
-  background-color: #334155; /* slate-700 */
+  background-color: #eea20e;
 }
 
-.menu-link.active {
-  background-color: #3b82f6; /* blue-500 */
-  color: white;
+.active {
+  background-color: #f6dc07;
+  color: #1e293b;
 }
+/* #f9ec07 f6dc07 f0bb09 f0b20b eea20e f4ca27 */
 
 .menu-link .icon {
   font-size: 1.25rem;
