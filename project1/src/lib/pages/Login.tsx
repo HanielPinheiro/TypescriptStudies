@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 import '../css/login.css';
+import { AVATAR3 } from '../ts/constants';
 
 const Login = () => {
   const { login } = useAuth();
@@ -53,7 +54,6 @@ const Login = () => {
         Switch to {theme === "light" ? "Dark" : "Light"} Mode
       </button> */}
 
-      {/* <section className="flex flex-col md:flex-row h-[60vh] "> */}
       <section className="flex flex-col md:flex-row w-full bg-cover bg-center">
         {/* Imagem à esquerda (ou em cima no mobile) */}
         <div className="w-full md:w-1/2 h-64 md:h-auto">
@@ -109,7 +109,7 @@ const Login = () => {
         <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Join the Vibe</h3>
         <p className="text-sm text-gray-600 dark:text-gray-400">Connect with your favorite creators and explore exclusive content.</p>
         <p className="flex justify-center bg-gray-100 dark:bg-gray-800">
-          <img src="/assets/login/Avatar3.png" alt="avatar" width={500} />
+          <img src={AVATAR3} alt="avatar" width={500} />
         </p>
       </section>
 

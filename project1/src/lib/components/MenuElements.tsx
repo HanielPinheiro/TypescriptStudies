@@ -1,11 +1,12 @@
 import { useAuth } from '../contexts/AuthContext';
 import type { LucideIcon } from 'lucide-react';
+import { AVATAR1 } from '../ts/constants';
 
 const ProfileAvatar = () => {
   const { user } = useAuth();
   return (
     <div className="profile-avatar">
-      <img src="/assets/login/Avatar3.png" alt="Avatar" />
+      <img src={AVATAR1} alt="Avatar" />
       <h2>{user?.username}</h2>
     </div>
   );

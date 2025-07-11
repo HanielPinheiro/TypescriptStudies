@@ -93,6 +93,97 @@
   font-size: 1.25rem;
 }
 
+.ref-location {
+  font-size: 18px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 30px;
+}
+
+/* Modelos Card */
+.modelos {
+  margin: 30px;
+}
+.card-modelos {
+  position: relative;
+  margin-bottom: 25px;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  border-color: #fff;
+}
+.card-modelos:hover {
+  border-color: #f0bb09;
+  cursor: pointer;
+}
+.modelo-bkg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.modelo-effect {
+  position: absolute;
+  width: 100%;
+  height: 45%;
+  bottom: 0;
+  background-color: #030303a8;
+}
+
+.modelo-content {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 0 16px;
+  z-index: 1;
+}
+
+.modelo-avatar-content {
+  display: flex;
+  flex-grow: 1;
+}
+.modelo-avatar {
+  margin-left: auto;
+  margin-right: auto;
+  width: 13vw;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.modelo-info-content {
+  flex-grow: 6;
+  margin-top: auto;
+}
+.modelo-nome {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: bold;
+  font-size: 24px;
+  justify-content: center;
+}
+
+.modelo-verified-icon {
+  color: #fff;
+  font-weight: bold;
+}
+
+.modelo-arroba {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #fff;
+  font-weight: normal;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 800px) {
   .mobile-header {
