@@ -5,6 +5,20 @@ import type { LucideIcon } from 'lucide-react';
 
 import { useAuth } from '../contexts/AuthContext';
 import Components from './MenuElements';
+import {
+  LOCATION_ASSINATURAS,
+  LOCATION_CHAT,
+  LOCATION_CONTEUDO,
+  LOCATION_DASHBOARD,
+  LOCATION_PERFIL,
+  LOCATION_SAIR,
+  PAGE_ASSINATURAS,
+  PAGE_CHAT,
+  PAGE_CONTEUDO,
+  PAGE_DASHBOARD,
+  PAGE_PERFIL,
+  PAGE_SAIR,
+} from '../ts/constants';
 
 const { ProfileAvatar, MenuItens } = Components;
 
@@ -25,12 +39,12 @@ const Menu = ({ isMobile, toggleMenu }: MenuProps) => {
   const { logout } = useAuth();
 
   const menuItems: MenuItem[] = [
-    { path: '/dashboard', label: 'Página Inicial', icon: Home },
-    { path: '/posts', label: 'Meu Conteúdo', icon: Flame },
-    { path: '/chat', label: 'Chat', icon: MessageCircle },
-    { path: '/assinaturas', label: 'Minhas Assinaturas', icon: HeartHandshake },
-    { path: '/perfil', label: 'Meu Perfil', icon: User },
-    { path: '*', label: 'Sair', icon: LogOut, action: logout },
+    { path: PAGE_DASHBOARD, label: LOCATION_DASHBOARD, icon: Home },
+    { path: PAGE_CONTEUDO, label: LOCATION_CONTEUDO, icon: Flame },
+    { path: PAGE_CHAT, label: LOCATION_CHAT, icon: MessageCircle },
+    { path: PAGE_ASSINATURAS, label: LOCATION_ASSINATURAS, icon: HeartHandshake },
+    { path: PAGE_PERFIL, label: LOCATION_PERFIL, icon: User },
+    { path: PAGE_SAIR, label: LOCATION_SAIR, icon: LogOut, action: logout },
   ];
 
   const handleItemClick = (item: MenuItem) => {
