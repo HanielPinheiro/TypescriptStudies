@@ -100,11 +100,18 @@ const mike = new Person2(1, 'asd');
 console.log(brad.register());
 console.log(mike.register());
 
-//Problema clássico de Herança e Composição juntos
-//Typescript tem o conceito de que interface só trabalha com coisas 'públicas'
-//Variáveis e funções privadas não podem existir em uma interface, e sim em uma classe
+/*
+Problema clássico de Herança e Composição juntos
+Typescript tem o conceito de que interface só trabalha com coisas 'públicas'
+Variáveis e funções privadas não podem existir em uma interface, e sim em uma classe
+*/
 class Employee extends Person implements PersonInterface {
     position: string;
+    id!: number;
+    /*
+    Class 'Employee' incorrectly extends base class 'Person'.
+    Property 'id' is private in type 'Person' but not in type 'Employee'.ts(2415)
+    */
     constructor(id: number, name: string, position: string) {
         super(id, name); // usa o construtor da classe herdada (Person)
         this.position = position;
@@ -131,4 +138,4 @@ let anyArray = getArray(['a', 'b', 'c', 'd']);
 anyArray.push(1);
 
 let stringArray = gerArrayTyped<string>(['a', 'b', 'c', 'd']);
-stringArray.push(1);
+stringArray.push(1); //Argument of type 'number' is not assignable to parameter of type 'string'.ts(2345)
