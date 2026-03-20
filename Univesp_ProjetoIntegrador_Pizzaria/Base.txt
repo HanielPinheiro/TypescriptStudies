@@ -1,0 +1,363 @@
+PROJETO
+INTEGRADOR
+
+PLANO DE AÇÃO
+
+Integrantes
+
+ANDERSON SANTOS DA SILVA, RA 24219845
+DIRCEU LIMA MAGALHÃES, RA 2215683
+HANIEL NUNES PEREIRA PINHEIRO, RA 24226428
+MARIA EDUARDA CASTRO SILVA, RA 24204932
+MICHAEL DE LIMA, RA 22113466
+Nome, RA
+Nome, RA
+
+Disciplina
+
+Projeto Integrador I
+
+Tema escolhido pelo grupo
+com base no tema
+norteador da Univesp
+
+Desenvolver aplicativo gerenciador de pedidos, clientes e
+cardápios para delivery de restaurantes, com foco inicial
+em pizzarias
+
+Título provisório do
+trabalho
+
+Aplicativo para restaurantes.
+
+Problema
+
+Necessidade de criar processos automatizados de pedidos
+para ganho de produtividade em deliverys de restaurantes.
+
+Objetivo
+
+O objetivo do projeto é atender a demanda de pizzarias
+onde o cliente tem a autonomia de escolha do sabor da
+pizza desejada; finalização do pedido e entrega sem a
+necessidade de um atendente.
+
+Polo(s)
+
+Polo Rosa da China, Polo Carrão, Polo Três Pontes,
+
+Orientador do PI
+
+Orientador de PI
+
+​
+Descreva o processo de escolha do local de realização do PI.
+Orientação para o preenchimento: É esperado que o grupo descreva o processo de escolha do local,
+identificando as seguintes ações: quais outras opções de comunidades externas existiam ou se
+existiam; como chegaram até essas comunidades; quais ações e decisões tomaram em grupo para a
+escolha da comunidade participante do projeto.
+
+PROJETO
+INTEGRADOR
+
+Para o processo de escolha do local, foi levada em consideração a crescente
+demanda de restaurantes focados em delivery, diminuindo e/ou eliminando o uso
+de mão de obra para a recepção de pedidos, geração de pagamentos, incluindo o
+cálculo de taxas de entregas, opções e exceções.
+Após uma reunião entre os membros do grupo, decidimos seguir com esse tema,
+pois ficou claro para todos a crescente necessidade de automação dos processos de
+deliverys em restaurantes.
+
+Descreva como foi a conversa com a comunidade externa que participará do projeto e
+que acolheu o grupo.
+Orientação para o preenchimento: É esperado que o grupo descreva a primeira visita à comunidade
+externa, identificando as seguintes ações: com qual(is) pessoa(s) conversou(ram) e sua posição na
+empresa/escola/etc.; descrição do local da visita; percepções do grupo quanto ao seu primeiro
+contato.
+
+Na primeira interação com a comunidade externa, percebemos que muitos
+estabelecimentos ainda dependem de atendentes, seja no telefone ou em
+aplicativos de mensagens, gerando custos e limitações de atendimento,
+demandando, em algumas situações, em contratações, diminuindo assim a margem
+de lucros do estabelecimento.
+
+Descreva, a partir da conversa com a comunidade externa, quais problemas podem ser
+pesquisados e que se relacionam com o tema norteador definido pela Univesp.
+Orientação para o preenchimento: É esperado que o grupo descreva ao menos um problema e sua
+relação com o tema norteador definido pela Univesp.
+
+De acordo com o primeiro contato, tivemos a impressão da necessidade de uma
+solução com uma interface gráfica de fácil acesso e localização dos itens, também
+da possibilidade de personalização dos pedidos, e também do gerenciamento de
+entregas e fidelização de clientes, com a criação de um cadastro de usuário.
+
+Frente ao tema norteador e aos problemas levantados junto à comunidade externa,
+descreva qual o tema específico a ser trabalho pelo grupo no PI.
+Orientação para o preenchimento: É esperado que o grupo descreva o tema que será trabalhado no
+Projeto Integrador e sua relação com o tema norteador definido pela Univesp.
+
+PROJETO
+INTEGRADOR
+
+Criaremos um banco de dados com os tipos, imagens e valores dos produtos a
+serem comercializados. Faremos também uma interface gráfica agradável e de
+fácil acesso e manuseio por parte do cliente, sempre focado na praticidade e
+confiabilidade. E, claro, automatizando o máximo de processos possível, dando
+assim mais agilidade e capacidade de atendimento ao estabelecimento.
+
+PROJETO
+INTEGRADOR
+
+Plano de Ação
+Orientação para o preenchimento: É esperado que o grupo identifique em todas as quinzenas: as atividades de maneira detalhada; os integrantes do grupo
+responsáveis por elas (todos os integrantes precisam ser listados); as datas de início e de finalização (conclusão da atividade) para cada uma delas. Além disso, ao
+descrever a atividade, note se há relação com o objetivo proposto para cada quinzena.
+
+Quinzena 1
+Objetivo: Analisar o cenário do projeto e iniciar o levantamento bibliográfico para abordar o problema.
+Atividade
+
+Responsável
+
+Data de
+início
+
+Data de
+finalização
+
+Observação
+
+Organização das etapas
+
+Dirceu, Michael
+
+26/02/2026
+
+26/02/2026
+
+Levantamento inicial de tarefas
+
+Montagem de Fluxograma
+
+Maria, Anderson
+
+28/02/2026
+
+07/03/2026
+
+Definição de atividades de acordo com o
+fluxograma
+
+Anderson, Dirceu, Haniel,
+Maria, Michael
+
+07/03/2026
+
+10/03/2026
+
+Análise do cenário
+
+Anderson, Dirceu, Haniel,
+Maria, Michael
+
+26/02/2026
+
+07/03/2026
+
+Estudo e análise do cenário
+
+PROJETO
+INTEGRADOR
+
+Quinzena 2
+Objetivo: Interagir com a comunidade externa, definir o problema e organizar o plano de ação.
+Atividade
+
+Responsável
+
+Data de
+início
+
+Data de
+finalização
+
+Produzir a pesquisa e entender a
+necessidade do cliente
+
+Maria, Haniel, Anderson
+
+07/03/2026
+
+15/03/2026
+
+Preenchimento e envio do termo de
+participação
+
+Entrevista do Cliente
+
+Michael, Dirceu, Maria,
+Anderson, Haniel
+
+10/03/2026
+
+10/03/2026
+
+Entender a real necessidade do cliente.
+
+Levantamento bibliográfico
+
+Michael, Dirceu, Maria,
+Anderson, Haniel
+
+07/03/2026
+
+15/03/2026
+
+Pesquisas sobre os temas e tecnologias
+que serão abordados
+
+Observação
+
+Quinzena 3
+Objetivo: Definir título do trabalho, visitar o local de pesquisa, dar continuidade ao desenvolvimento do trabalho.
+Atividade
+
+Responsável
+
+Data de
+início
+
+Data de
+finalização
+
+Observação
+
+Definir título do trabalho
+
+Todos
+
+05/03
+
+09/03
+
+Reunião de alinhamento
+
+Continuidade / desenvolvimento do
+trabalho
+
+Anderson, Haniel
+
+Coleta de dados iniciais
+
+Pesquisar referências
+
+Michael, Dirceu
+
+Levantamento bibliográfico
+
+Estruturar introdução
+
+Maria
+
+Com base nas visitas e pesquisas
+
+PROJETO
+INTEGRADOR
+
+Quinzena 4
+Objetivo: Construir e apresentar a solução inicial (Relatório Parcial); coletar sugestões com a comunidade externa; entregar o Relatório Parcial
+(conforme modelos disponíveis no AVA).
+Atividade
+
+Responsável
+
+Data de
+início
+
+Data de
+finalização
+
+Elaboração do Relatório com base no
+protótipo e opinião da comunidade
+
+Todos
+
+17/03
+
+30/03
+
+Observação
+
+Quinzena 5
+Objetivo: Construir a solução final, com base nas sugestões do Relatório Parcial.
+Atividade
+
+Responsável
+
+Data de
+início
+
+Data de
+finalização
+
+Refinamento do protótipo e correções
+conforme necessidade
+
+Todos
+
+31/03
+
+13/04
+
+Observação
+
+PROJETO
+INTEGRADOR
+
+Quinzena 6
+Objetivo: Analisar os resultados, finalizar o protótipo e preparar o Vídeo de apresentação.
+Atividade
+
+Responsável
+
+Data de
+início
+
+Análise dos resultados e refinamento do
+protótipo
+
+Todos
+
+14/04
+
+Data de
+finalização
+27/04
+
+Observação
+
+Quinzena 7
+Objetivo: Concluir e entregar o Relatório Final e o Vídeo de apresentação.
+Atividade
+
+Responsável
+
+Data de
+início
+
+Conclusão
+
+Todos
+
+28/04
+
+Data de
+finalização
+12/05
+
+Observação
+
+PROJETO
+INTEGRADOR
+
+

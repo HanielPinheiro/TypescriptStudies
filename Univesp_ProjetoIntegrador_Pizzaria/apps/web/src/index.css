@@ -1,0 +1,53 @@
+:root {
+  --bg: #0d0e11;
+  --text: rgba(255, 255, 255, 0.72);
+  --text-h: rgba(255, 255, 255, 0.94);
+  --brand: #ffc107;
+  --brand2: #ff3b3b;
+  --heading: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  font: 16px/1.45 var(--sans);
+  letter-spacing: 0.1px;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(1200px circle at 20% -10%, rgba(255, 193, 7, 0.12), transparent 60%),
+    radial-gradient(900px circle at 90% 10%, rgba(255, 59, 59, 0.12), transparent 55%),
+    var(--bg);
+}
+
+#root {
+  min-height: 100svh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--heading);
+  color: var(--text-h);
+}
+
+a {
+  color: var(--brand);
+}
+
+strong {
+  color: var(--text-h);
+}
+
+button,
+input {
+  font: inherit;
+}
