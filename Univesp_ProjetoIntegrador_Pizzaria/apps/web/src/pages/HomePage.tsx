@@ -8,7 +8,7 @@ type Category = {
   name: string;
   slug: string;
 };
-
+//asd
 type Product = {
   id: string;
   categoryId: string | null;
