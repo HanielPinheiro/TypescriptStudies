@@ -1,37 +1,40 @@
-import { useMemo, useState, type FormEvent } from 'react'
-import { Navigate, Link, useLocation, useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
-import { useCart } from '../contexts/CartContext'
-import { apiRequest } from '../lib/api'
-import { formatBRLFromCents } from '../lib/money'
+import { useMemo, useState, type FormEvent } from "react";
+import { Navigate, Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { useCart } from "../contexts/CartContext";
+import { apiRequest } from "../lib/api";
+import { formatBRLFromCents } from "../lib/money";
 
 export function CheckoutPage() {
-  const auth = useAuth()
-  const cart = useCart()
-  const navigate = useNavigate()
-  const location = useLocation()
+  const auth = useAuth();
+  const cart = useCart();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const [deliveryAddress, setDeliveryAddress] = useState('')
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const isEmpty = cart.items.length === 0
-  const canSubmit = !isEmpty && deliveryAddress.trim().length >= 10 && !loading
+  const isEmpty = cart.items.length === 0;
+  const canSubmit = !isEmpty && deliveryAddress.trim().length >= 10 && !loading;
 
-  const from = useMemo(() => location.pathname + location.search, [location.pathname, location.search])
+  const from = useMemo(
+    () => location.pathname + location.search,
+    [location.pathname, location.search],
+  );
 
   if (!auth.token) {
-    return <Navigate to="/login" state={{ from }} replace />
+    return <Navigate to="/login" state={{ from }} replace />;
   }
 
   async function onSubmit(e: FormEvent) {
-    e.preventDefault()
-    setError(null)
-    setLoading(true)
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
     try {
       const res = await apiRequest<{ id: string }>({
-        path: '/api/orders',
-        method: 'POST',
+        path: "/api/orders",
+        method: "POST",
         token: auth.token,
         body: {
           deliveryAddress,
@@ -39,15 +42,16 @@ export function CheckoutPage() {
             productId: i.productId,
             quantity: i.quantity,
             notes: i.notes,
+            pizza: i.pizza,
           })),
         },
-      })
-      cart.clear()
-      navigate('/orders', { replace: true, state: { highlight: res.id } })
+      });
+      cart.clear();
+      navigate("/orders", { replace: true, state: { highlight: res.id } });
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Falha ao criar pedido')
+      setError(err instanceof Error ? err.message : "Falha ao criar pedido");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
@@ -56,33 +60,56 @@ export function CheckoutPage() {
       <div className="checkout__head">
         <h2 className="section__title">Finalizar pedido</h2>
         <p className="muted">
-          Logado como <strong>{auth.customer?.email}</strong>. <Link to="/">Continuar comprando</Link>
+          Logado como <strong>{auth.customer?.email}</strong>.{" "}
+          <Link to="/">Continuar comprando</Link>
         </p>
       </div>
 
       <div className="checkout__grid">
         <section className="panel">
           <div className="panel__title">Seu carrinho</div>
-          {isEmpty ? <div className="alert">Seu carrinho está vazio.</div> : null}
+          {isEmpty ? (
+            <div className="alert">Seu carrinho está vazio.</div>
+          ) : null}
 
           <div className="cartList">
             {cart.items.map((i) => (
-              <div key={i.productId} className="cartItem">
-                <div className="cartItem__img" style={{ backgroundImage: `url(${i.imageUrl})` }} />
+              <div key={i.id} className="cartItem">
+                <img
+                  className="cartItem__img"
+                  src={i.imageUrl}
+                  alt={i.name}
+                  loading="lazy"
+                  decoding="async"
+                />
                 <div className="cartItem__body">
                   <div className="cartItem__top">
                     <div className="cartItem__name">{i.name}</div>
-                    <div className="price">{formatBRLFromCents(i.priceCents * i.quantity)}</div>
+                    <div className="price">
+                      {formatBRLFromCents(i.priceCents * i.quantity)}
+                    </div>
                   </div>
                   <div className="cartItem__controls">
-                    <button type="button" className="qty" onClick={() => cart.setQuantity(i.productId, i.quantity - 1)}>
+                    <button
+                      type="button"
+                      className="qty"
+                      onClick={() => cart.setQuantity(i.id, i.quantity - 1)}
+                    >
                       –
                     </button>
                     <div className="qty__value">{i.quantity}</div>
-                    <button type="button" className="qty" onClick={() => cart.setQuantity(i.productId, i.quantity + 1)}>
+                    <button
+                      type="button"
+                      className="qty"
+                      onClick={() => cart.setQuantity(i.id, i.quantity + 1)}
+                    >
                       +
                     </button>
-                    <button type="button" className="linkDanger" onClick={() => cart.removeItem(i.productId)}>
+                    <button
+                      type="button"
+                      className="linkDanger"
+                      onClick={() => cart.removeItem(i.id)}
+                    >
                       Remover
                     </button>
                   </div>
@@ -91,7 +118,7 @@ export function CheckoutPage() {
                     <input
                       className="input"
                       value={i.notes}
-                      onChange={(e) => cart.setNotes(i.productId, e.target.value)}
+                      onChange={(e) => cart.setNotes(i.id, e.target.value)}
                       placeholder="Ex.: sem cebola, meio a meio..."
                       maxLength={200}
                     />
@@ -122,16 +149,20 @@ export function CheckoutPage() {
             <div className="summary">
               <div className="summary__row">
                 <span className="muted">Total</span>
-                <span className="summary__total">{formatBRLFromCents(cart.totalCents)}</span>
+                <span className="summary__total">
+                  {formatBRLFromCents(cart.totalCents)}
+                </span>
               </div>
               <button className="btn" type="submit" disabled={!canSubmit}>
-                {loading ? 'Enviando...' : 'Confirmar pedido'}
+                {loading ? "Enviando..." : "Confirmar pedido"}
               </button>
-              <div className="muted small">Pagamento e status ficam prontos para evoluções do projeto.</div>
+              <div className="muted small">
+                Pagamento e status ficam prontos para evoluções do projeto.
+              </div>
             </div>
           </form>
         </section>
       </div>
     </div>
-  )
+  );
 }

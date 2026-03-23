@@ -65,7 +65,9 @@
   font-weight: 600;
   padding: 8px 10px;
   border-radius: 10px;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .nav__link:hover {
@@ -123,8 +125,17 @@
 
 .hero {
   padding: 64px 0 48px;
-  background: radial-gradient(900px circle at 20% 20%, rgba(255, 193, 7, 0.25), transparent 60%),
-    radial-gradient(900px circle at 80% 10%, rgba(255, 59, 59, 0.22), transparent 55%),
+  background:
+    radial-gradient(
+      900px circle at 20% 20%,
+      rgba(255, 193, 7, 0.25),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px circle at 80% 10%,
+      rgba(255, 59, 59, 0.22),
+      transparent 55%
+    ),
     linear-gradient(180deg, rgba(13, 14, 17, 0.95), rgba(13, 14, 17, 0.78));
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -234,9 +245,9 @@
 
 .hero__image {
   height: 240px;
-  background-image: url('https://images.unsplash.com/photo-1548365328-9bdb51f8c0b1?auto=format&fit=crop&w=1200&q=80');
-  background-size: cover;
-  background-position: center;
+  width: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .hero__cardBody {
@@ -311,7 +322,11 @@
 }
 
 .filter--active {
-  background: linear-gradient(135deg, rgba(255, 193, 7, 0.25), rgba(255, 59, 59, 0.18));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 193, 7, 0.25),
+    rgba(255, 59, 59, 0.18)
+  );
   border-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -330,8 +345,9 @@
 
 .card__media {
   height: 150px;
-  background-size: cover;
-  background-position: center;
+  width: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .card__body {
@@ -543,8 +559,8 @@
   width: 72px;
   height: 72px;
   border-radius: 16px;
-  background-size: cover;
-  background-position: center;
+  display: block;
+  object-fit: cover;
 }
 
 .cartItem__top {
@@ -738,6 +754,127 @@
     font-size: 40px;
   }
   .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.62);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  z-index: 50;
+}
+
+.modal {
+  width: min(760px, 100%);
+}
+
+.modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.modal__close {
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-h);
+  font-weight: 800;
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 999px;
+}
+
+.pizzaBuilder {
+  display: grid;
+  gap: 14px;
+}
+
+.pizzaBuilder__row {
+  display: grid;
+  gap: 10px;
+}
+
+.pizzaBuilder__chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-h);
+  font-weight: 900;
+  font-size: 13px;
+  padding: 10px 12px;
+  border-radius: 999px;
+}
+
+.chip--active {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.25), rgba(255, 59, 59, 0.18));
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.pizzaBuilder__flavors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.flavorBtn {
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--text-h);
+}
+
+.flavorBtn--active {
+  border-color: rgba(255, 193, 7, 0.5);
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(255, 59, 59, 0.12));
+}
+
+.flavorBtn__name {
+  font-weight: 900;
+}
+
+.flavorBtn__price {
+  font-weight: 900;
+  color: var(--brand2);
+  white-space: nowrap;
+}
+
+.pizzaBuilder__check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-h);
+  font-weight: 800;
+}
+
+.pizzaBuilder__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 560px) {
+  .pizzaBuilder__flavors {
     grid-template-columns: 1fr;
   }
 }

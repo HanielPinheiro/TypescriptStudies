@@ -27,6 +27,14 @@ export async function findProductById(input) {
     const row = await k('products').select('*').where({ id: input.id }).first();
     return row ? mapProduct(row) : null;
 }
+export async function findProductsByIds(input) {
+    const ids = input.ids.map((id) => id.trim()).filter(Boolean);
+    if (ids.length === 0)
+        return [];
+    const k = db();
+    const rows = await k('products').select('*').whereIn('id', ids);
+    return rows.map(mapProduct);
+}
 export async function seedCatalogIfEmpty() {
     const k = db();
     const [{ count }] = await k('products').count({ count: '*' });
@@ -43,10 +51,28 @@ export async function seedCatalogIfEmpty() {
         {
             id: randomUUID(),
             category_id: bySlug.get('pizzas') ?? null,
+            name: 'Pizza (8 pedaços) — Monte a sua',
+            description: 'Escolha 1, 2 ou 3 sabores e opção de borda recheada.',
+            price_cents: 0,
+            image_url: '/images/pizzas/montar-sua.jpeg',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('pizzas') ?? null,
             name: 'Margherita',
             description: 'Molho de tomate, muçarela, manjericão e azeite.',
             price_cents: 4490,
-            image_url: 'https://images.unsplash.com/photo-1548365328-9bdb51f8c0b1?auto=format&fit=crop&w=900&q=80',
+            image_url: '/images/pizzas/margherita.jpg',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('pizzas') ?? null,
+            name: 'Calabresa',
+            description: 'Calabresa fatiada, cebola, muçarela e orégano.',
+            price_cents: 4790,
+            image_url: '/images/pizzas/calabresa.jpg',
             active: true,
         },
         {
@@ -55,7 +81,25 @@ export async function seedCatalogIfEmpty() {
             name: 'Pepperoni',
             description: 'Muçarela, pepperoni e toque de pimenta.',
             price_cents: 4990,
-            image_url: 'https://images.unsplash.com/photo-1601924638867-3ecf0c3a5e3a?auto=format&fit=crop&w=900&q=80',
+            image_url: '/images/pizzas/pepperoni.jpg',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('pizzas') ?? null,
+            name: 'Quatro Queijos',
+            description: 'Muçarela, parmesão, provolone e gorgonzola.',
+            price_cents: 5390,
+            image_url: '/images/pizzas/quatro-queijos.jpg',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('pizzas') ?? null,
+            name: 'Portuguesa',
+            description: 'Presunto, ovos, cebola, azeitona, muçarela e orégano.',
+            price_cents: 5490,
+            image_url: '/images/pizzas/portuguesa.jpeg',
             active: true,
         },
         {
@@ -63,17 +107,80 @@ export async function seedCatalogIfEmpty() {
             category_id: bySlug.get('pizzas') ?? null,
             name: 'Frango com Catupiry',
             description: 'Frango desfiado, catupiry e orégano.',
-            price_cents: 5290,
-            image_url: 'https://images.unsplash.com/photo-1598023696416-0193a0bcd302?auto=format&fit=crop&w=900&q=80',
+            price_cents: 5590,
+            image_url: '/images/pizzas/frango-catupiry.jpg',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('pizzas') ?? null,
+            name: 'Toscana',
+            description: 'Linguiça toscana, muçarela e orégano.',
+            price_cents: 5190,
+            image_url: '/images/pizzas/toscana.jpg',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('pizzas') ?? null,
+            name: 'Bacon',
+            description: 'Bacon crocante, muçarela e molho de tomate.',
+            price_cents: 5690,
+            image_url: '/images/pizzas/bacon.jpg',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('pizzas') ?? null,
+            name: 'Vegetariana',
+            description: 'Legumes, muçarela e orégano.',
+            price_cents: 5190,
+            image_url: '/images/pizzas/vegetariana.jpg',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('pizzas') ?? null,
+            name: 'Napolitana',
+            description: 'Muçarela, tomate, parmesão e orégano.',
+            price_cents: 4990,
+            image_url: '/images/pizzas/napolitana.JPG',
             active: true,
         },
         {
             id: randomUUID(),
             category_id: bySlug.get('bebidas') ?? null,
-            name: 'Refrigerante 2L',
-            description: 'Diversos sabores.',
+            name: 'Refrigerante (2L)',
+            description: 'Coca-cola, guaraná ou similar.',
             price_cents: 1290,
-            image_url: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?auto=format&fit=crop&w=900&q=80',
+            image_url: '/images/bebidas/refrigerante-2l.jpg',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('bebidas') ?? null,
+            name: 'Refrigerante (lata)',
+            description: '350ml — diversos sabores.',
+            price_cents: 590,
+            image_url: '/images/bebidas/refrigerante-lata.jpg',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('bebidas') ?? null,
+            name: 'Água (500ml)',
+            description: 'Sem gás ou com gás.',
+            price_cents: 390,
+            image_url: '/images/bebidas/agua.jpeg',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('bebidas') ?? null,
+            name: 'Suco (500ml)',
+            description: 'Laranja, uva ou limão.',
+            price_cents: 790,
+            image_url: '/images/bebidas/suco.png',
             active: true,
         },
         {
@@ -82,7 +189,25 @@ export async function seedCatalogIfEmpty() {
             name: 'Brownie',
             description: 'Chocolate intenso e casquinha crocante.',
             price_cents: 1590,
-            image_url: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=80',
+            image_url: '/images/sobremesas/brownie.JPG',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('sobremesas') ?? null,
+            name: 'Pudim',
+            description: 'Pudim de leite condensado com calda.',
+            price_cents: 1490,
+            image_url: '/images/sobremesas/pudim.jpg',
+            active: true,
+        },
+        {
+            id: randomUUID(),
+            category_id: bySlug.get('sobremesas') ?? null,
+            name: 'Açaí (pote)',
+            description: 'Açaí tradicional.',
+            price_cents: 1290,
+            image_url: '/images/sobremesas/acai.jpg',
             active: true,
         },
     ];
