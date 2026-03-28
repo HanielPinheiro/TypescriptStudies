@@ -59,8 +59,38 @@ export async function ensureSchema() {
             t.string('name').notNullable();
             t.string('email').notNullable().unique();
             t.string('password_hash').notNullable();
+            t.string('cep').notNullable().defaultTo('');
+            t.string('street').notNullable().defaultTo('');
+            t.string('number').notNullable().defaultTo('');
+            t.string('complement').notNullable().defaultTo('');
+            t.string('neighborhood').notNullable().defaultTo('');
+            t.string('city').notNullable().defaultTo('');
+            t.string('state').notNullable().defaultTo('');
             t.timestamps(true, true);
         });
+    }
+    else {
+        const hasCep = await k.schema.hasColumn('customers', 'cep');
+        if (!hasCep)
+            await k.schema.alterTable('customers', (t) => t.string('cep').notNullable().defaultTo(''));
+        const hasStreet = await k.schema.hasColumn('customers', 'street');
+        if (!hasStreet)
+            await k.schema.alterTable('customers', (t) => t.string('street').notNullable().defaultTo(''));
+        const hasNumber = await k.schema.hasColumn('customers', 'number');
+        if (!hasNumber)
+            await k.schema.alterTable('customers', (t) => t.string('number').notNullable().defaultTo(''));
+        const hasComplement = await k.schema.hasColumn('customers', 'complement');
+        if (!hasComplement)
+            await k.schema.alterTable('customers', (t) => t.string('complement').notNullable().defaultTo(''));
+        const hasNeighborhood = await k.schema.hasColumn('customers', 'neighborhood');
+        if (!hasNeighborhood)
+            await k.schema.alterTable('customers', (t) => t.string('neighborhood').notNullable().defaultTo(''));
+        const hasCity = await k.schema.hasColumn('customers', 'city');
+        if (!hasCity)
+            await k.schema.alterTable('customers', (t) => t.string('city').notNullable().defaultTo(''));
+        const hasState = await k.schema.hasColumn('customers', 'state');
+        if (!hasState)
+            await k.schema.alterTable('customers', (t) => t.string('state').notNullable().defaultTo(''));
     }
     const hasOrders = await k.schema.hasTable('orders');
     if (!hasOrders) {
