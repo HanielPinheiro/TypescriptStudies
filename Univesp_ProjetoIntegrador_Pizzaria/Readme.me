@@ -1,0 +1,188 @@
+toolName: view_folder
+            
+status: success
+          
+e:\MeusSoftwaresParaUsoGeral\EstudosProgramacao\Typescript\TypescriptStudies\Univesp_ProjetoIntegrador_Pizzaria
+          
+
+        
+            
+toolName: view_files
+            
+status: success
+          
+            
+filePath: e:\MeusSoftwaresParaUsoGeral\EstudosProgramacao\Typescript\TypescriptStudies\Univesp_ProjetoIntegrador_Pizzaria\package.json
+          
+
+        
+            
+toolName: view_files
+            
+status: success
+          
+            
+filePath: e:\MeusSoftwaresParaUsoGeral\EstudosProgramacao\Typescript\TypescriptStudies\Univesp_ProjetoIntegrador_Pizzaria\apps\api\src\app.ts
+          
+
+        
+            
+toolName: view_files
+            
+status: success
+          
+            
+filePath: e:\MeusSoftwaresParaUsoGeral\EstudosProgramacao\Typescript\TypescriptStudies\Univesp_ProjetoIntegrador_Pizzaria\apps\api\src\main.ts
+          
+
+        
+            
+toolName: view_files
+            
+status: success
+          
+            
+filePath: e:\MeusSoftwaresParaUsoGeral\EstudosProgramacao\Typescript\TypescriptStudies\Univesp_ProjetoIntegrador_Pizzaria\apps\api\src\modules\orders\presentation\orders.routes.ts
+          
+
+        
+            
+toolName: view_files
+            
+status: success
+          
+            
+filePath: e:\MeusSoftwaresParaUsoGeral\EstudosProgramacao\Typescript\TypescriptStudies\Univesp_ProjetoIntegrador_Pizzaria\apps\web\src\App.tsx
+          
+
+        
+            
+toolName: view_files
+            
+status: success
+          
+            
+filePath: e:\MeusSoftwaresParaUsoGeral\EstudosProgramacao\Typescript\TypescriptStudies\Univesp_ProjetoIntegrador_Pizzaria\apps\web\src\lib\storage.ts
+          
+Sim — vou te explicar o projeto “de ponta a ponta”, do jeito que você apresentaria numa banca: arquitetura, fluxos, módulos e decisões.
+
+**Visão Geral**
+- É um monorepo com 2 apps: **frontend web** e **backend API** dentro de [apps](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps).
+- O objetivo é um delivery simples de pizzaria: **catálogo → carrinho → checkout (endereço) → pedido → histórico**.
+- Integrações externas:
+  - **Supabase Postgres** como banco (via `DATABASE_URL` no backend).
+  - **ViaCEP** (gratuita) para buscar endereço pelo CEP no cadastro.
+  - Deploy típico: **Vercel** (web) e **Render** (api).
+
+---
+
+## 1) Backend (API) — como funciona
+
+**Stack e estrutura**
+- Node + TypeScript + Express.
+- Rotas organizadas por “módulos” (catalog, customers, orders) em [apps/api/src/modules](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/api/src/modules).
+- Banco via Knex em [db.ts](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/api/src/config/db.ts).
+
+**Bootstrap (subida do servidor)**
+- Em [main.ts](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/api/src/main.ts):
+  - `ensureSchema()` cria/ajusta tabelas no banco.
+  - `seedCatalogIfEmpty()` popula categorias e produtos se `products` estiver vazia.
+  - Sobe o Express na porta configurada.
+
+**CORS (conexão Vercel → Render)**
+- Em [app.ts](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/api/src/app.ts#L14-L30) a API valida o `Origin`:
+  - Lê `WEB_ORIGIN` (pode ser lista separada por vírgula).
+  - Normaliza removendo barra final para evitar mismatch tipo `...app` vs `...app/`.
+
+**Esquema do banco (tabelas)**
+Criadas em [db.ts](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/api/src/config/db.ts):
+- `categories`: categorias do cardápio.
+- `products`: produtos (pizza, bebida, sobremesa) com `image_url`.
+- `customers`: clientes (auth + endereço).
+- `orders`: pedido (status, total, delivery_address).
+- `order_items`: itens do pedido (snapshot de nome/preço/notas no momento do pedido).
+
+**Módulo de Clientes (auth + endereço)**
+- Rotas em [customers.routes.ts](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/api/src/modules/customers/presentation/customers.routes.ts):
+  - `POST /api/auth/register`: cria cliente (agora com CEP/rua/número/etc).
+  - `POST /api/auth/login`: valida senha e retorna token.
+  - `GET /api/me`: retorna dados do cliente logado (inclui endereço).
+- Repositório em [customerRepository.ts](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/api/src/modules/customers/infrastructure/customerRepository.ts).
+
+**Módulo de Catálogo**
+- Rotas em [catalog.routes.ts](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/api/src/modules/catalog/presentation/catalog.routes.ts) (ex.: listar menu).
+- Seed e acesso a produtos em [catalogRepository.ts](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/api/src/modules/catalog/infrastructure/catalogRepository.ts).
+- Importante: `image_url` aponta para caminhos locais do frontend, tipo `/images/pizzas/...`.
+
+**Módulo de Pedidos**
+- Rotas em [orders.routes.ts](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/api/src/modules/orders/presentation/orders.routes.ts):
+  - `POST /api/orders`: cria pedido.
+  - `GET /api/orders/mine`: lista pedidos do cliente.
+- Lógica especial: **pizza personalizada**:
+  - O frontend manda `pizza: { flavorIds: [..], stuffedCrust?: boolean }`.
+  - A API valida 1–3 sabores, sem duplicar, busca produtos e calcula preço.
+  - Regra atual: **pega o maior preço entre os sabores** e soma borda recheada (constante `STUFFED_CRUST_EXTRA_CENTS`).
+
+---
+
+## 2) Frontend (Web) — como funciona
+
+**Stack e estrutura**
+- React + TypeScript + Vite.
+- Rotas em [App.tsx](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/web/src/App.tsx): Home, Login, Register, Checkout, Orders.
+- Estado global via Context API:
+  - Auth em [AuthContext.tsx](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/web/src/contexts/AuthContext.tsx)
+  - Carrinho em [CartContext.tsx](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/web/src/contexts/CartContext.tsx)
+
+**Comunicação com a API**
+- Helper em [api.ts](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/web/src/lib/api.ts):
+  - `API_BASE_URL` vem de `VITE_API_URL` (ou localhost).
+  - `apiRequest` faz `fetch`, injeta `Authorization` quando tem token e joga erro com mensagem.
+
+**Persistência no browser**
+- `localStorage` via [storage.ts](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/web/src/lib/storage.ts):
+  - Auth fica salvo (token + customer).
+  - Carrinho fica salvo (itens).
+
+**Imagens locais**
+- Servidas pela Vercel/Vite a partir de [public/images](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/web/public/images).
+- Os produtos do catálogo usam `image_url` como `/images/...` e o `<img src>` usa isso direto.
+
+**Home (catálogo + pizza personalizada)**
+- Em [HomePage.tsx](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/web/src/pages/HomePage.tsx):
+  - Busca menu via `/api/catalog/menu`.
+  - Lista produtos.
+  - Para “Monte a sua”, abre modal para escolher 1/2/3 sabores e borda recheada e adiciona ao carrinho com configuração.
+
+**Cadastro com CEP**
+- Em [RegisterPage.tsx](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/web/src/pages/RegisterPage.tsx):
+  - Form pede dados pessoais + endereço.
+  - Ao sair do CEP (`onBlur`), chama `https://viacep.com.br/ws/<cep>/json/` e preenche campos.
+  - Ao concluir, chama `auth.register(...)` e redireciona para `/`.
+
+**Checkout (endereço cadastrado ou outro)**
+- Em [CheckoutPage.tsx](file:///e:/MeusSoftwaresParaUsoGeral/EstudosProgramacao/Typescript/TypescriptStudies/Univesp_ProjetoIntegrador_Pizzaria/apps/web/src/pages/CheckoutPage.tsx):
+  - Mostra itens do carrinho.
+  - Na entrega: radio para **usar endereço cadastrado** (se existir) ou **digitar outro**.
+  - Envia `deliveryAddress` e itens para `POST /api/orders`.
+
+---
+
+## 3) Fluxo completo (do clique ao pedido)
+- Usuário entra na Home → carrega catálogo da API.
+- Seleciona produto (ou “Monte a sua”) → carrinho guarda item no `localStorage`.
+- Faz login/cadastro → recebe token JWT → `Authorization: Bearer ...`.
+- Checkout → escolhe endereço (cadastrado ou outro) → envia pedido.
+- API valida e calcula total → grava `orders` e `order_items`.
+- Front mostra `/orders` listando pedidos.
+
+---
+
+## 4) O que vale mencionar na apresentação (decisões técnicas)
+- Separação clara: frontend só consome API e serve assets; backend concentra regras (auth, validação, total do pedido).
+- Validação de payload no backend via Zod (evita “dados quebrados”).
+- CORS controlado por allowlist (segurança).
+- Imagens locais (estáveis) em vez de hotlink externo (evita erro de rede e bloqueios).
+- Pizza com 1/2/3 sabores implementada como “produto base + configuração” (payload `pizza`) em vez de criar 300 combinações no catálogo.
+
+Se você quiser, eu também monto um “roteiro de explicação” de 2–3 minutos (bem estilo apresentação de PI) com os pontos-chave e o que demonstrar na tela.
