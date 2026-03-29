@@ -162,6 +162,84 @@ export function HomePage() {
     return menu.products.filter((p) => p.categoryId === category.id);
   }, [menu, selectedCategory]);
 
+  const categoriesForAll = useMemo(() => {
+    const order = ["pizzas", "bebidas", "sobremesas"];
+    const bySlug = new Map(menu.categories.map((c) => [c.slug, c]));
+    const prioritized = order
+      .map((slug) => bySlug.get(slug))
+      .filter((c): c is Category => Boolean(c));
+    const rest = menu.categories.filter((c) => !order.includes(c.slug));
+    return [...prioritized, ...rest];
+  }, [menu.categories]);
+
+  function renderProductCard(p: Product) {
+    return (
+      <article key={p.id} className="card">
+        <img
+          className="card__media"
+          src={p.imageUrl}
+          alt={p.name}
+          loading="lazy"
+          decoding="async"
+        />
+        <div className="card__body">
+          <div className="card__top">
+            <div className="card__title">{p.name}</div>
+            <div className="price">
+              {(() => {
+                const slug = p.categoryId
+                  ? categoriesById.get(p.categoryId)?.slug
+                  : null;
+                const isPizza = slug === "pizzas";
+                const isPizzaBaseProduct =
+                  isPizza && p.name.includes("Monte a sua");
+                if (isPizzaBaseProduct) {
+                  return `A partir de ${formatBRLFromCents(pizzaFromCents)}`;
+                }
+                return formatBRLFromCents(p.priceCents);
+              })()}
+            </div>
+          </div>
+          <div className="card__desc">{p.description}</div>
+          <button
+            type="button"
+            className="btn btn--small"
+            onClick={() => {
+              const slug = p.categoryId
+                ? categoriesById.get(p.categoryId)?.slug
+                : null;
+              const isPizza = slug === "pizzas";
+              const isPizzaBaseProduct =
+                isPizza && p.name.includes("Monte a sua");
+              if (isPizzaBaseProduct) {
+                openPizzaBuilder();
+                return;
+              }
+              if (isPizza) {
+                openPizzaBuilder(p.id);
+                return;
+              }
+              cart.addItem({
+                productId: p.id,
+                name: p.name,
+                imageUrl: p.imageUrl,
+                priceCents: p.priceCents,
+              });
+            }}
+          >
+            {(() => {
+              const slug = p.categoryId
+                ? categoriesById.get(p.categoryId)?.slug
+                : null;
+              const isPizza = slug === "pizzas";
+              return isPizza ? "Personalizar" : "Adicionar";
+            })()}
+          </button>
+        </div>
+      </article>
+    );
+  }
+
   return (
     <>
       <section className="hero">
@@ -207,7 +285,9 @@ export function HomePage() {
             />
             <div className="hero__cardBody">
               <div className="hero__cardTitle">Promo do dia</div>
-              <div className="hero__cardText">Margherita + Refrigerante 2L</div>
+              <div className="hero__cardText">
+                Bacon com cheddar + Refrigerante 2L
+              </div>
               <div className="hero__cardPrice">R$ 59,90</div>
             </div>
           </div>
@@ -254,73 +334,24 @@ export function HomePage() {
 
           {error ? <div className="alert">{error}</div> : null}
 
-          <div className="grid">
-            {products.map((p) => (
-              <article key={p.id} className="card">
-                <img
-                  className="card__media"
-                  src={p.imageUrl}
-                  alt={p.name}
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div className="card__body">
-                  <div className="card__top">
-                    <div className="card__title">{p.name}</div>
-                    <div className="price">
-                      {(() => {
-                        const slug = p.categoryId
-                          ? categoriesById.get(p.categoryId)?.slug
-                          : null;
-                        const isPizza = slug === "pizzas";
-                        const isPizzaBaseProduct =
-                          isPizza && p.name.includes("Monte a sua");
-                        if (isPizzaBaseProduct) {
-                          return `A partir de ${formatBRLFromCents(pizzaFromCents)}`;
-                        }
-                        return formatBRLFromCents(p.priceCents);
-                      })()}
-                    </div>
+          {selectedCategory === "all" ? (
+            <div className="menuGroups">
+              {categoriesForAll.map((c) => {
+                const items = menu.products.filter(
+                  (p) => p.categoryId === c.id,
+                );
+                if (!items.length) return null;
+                return (
+                  <div key={c.id} className="panel">
+                    <div className="panel__title">{c.name}</div>
+                    <div className="grid">{items.map(renderProductCard)}</div>
                   </div>
-                  <div className="card__desc">{p.description}</div>
-                  <button
-                    type="button"
-                    className="btn btn--small"
-                    onClick={() => {
-                      const slug = p.categoryId
-                        ? categoriesById.get(p.categoryId)?.slug
-                        : null;
-                      const isPizza = slug === "pizzas";
-                      const isPizzaBaseProduct =
-                        isPizza && p.name.includes("Monte a sua");
-                      if (isPizzaBaseProduct) {
-                        openPizzaBuilder();
-                        return;
-                      }
-                      if (isPizza) {
-                        openPizzaBuilder(p.id);
-                        return;
-                      }
-                      cart.addItem({
-                        productId: p.id,
-                        name: p.name,
-                        imageUrl: p.imageUrl,
-                        priceCents: p.priceCents,
-                      });
-                    }}
-                  >
-                    {(() => {
-                      const slug = p.categoryId
-                        ? categoriesById.get(p.categoryId)?.slug
-                        : null;
-                      const isPizza = slug === "pizzas";
-                      return isPizza ? "Personalizar" : "Adicionar";
-                    })()}
-                  </button>
-                </div>
-              </article>
-            ))}
-          </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="grid">{products.map(renderProductCard)}</div>
+          )}
         </div>
       </section>
 
@@ -393,7 +424,7 @@ export function HomePage() {
                   onChange={(e) => setPizzaStuffedCrust(e.target.checked)}
                 />
                 <span>
-                  Borda recheada (+{" "}
+                  Borda recheada de Catupiry (+{" "}
                   {formatBRLFromCents(STUFFED_CRUST_EXTRA_CENTS)})
                 </span>
               </label>

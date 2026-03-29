@@ -204,8 +204,8 @@ export async function seedCatalogIfEmpty() {
         {
             id: randomUUID(),
             category_id: bySlug.get('sobremesas') ?? null,
-            name: 'Açaí (pote)',
-            description: 'Açaí tradicional.',
+            name: 'Açaí (marmita de 750mL)',
+            description: 'Açaí tradicional — 750mL.',
             price_cents: 1290,
             image_url: '/images/sobremesas/acai.jpg',
             active: true,
