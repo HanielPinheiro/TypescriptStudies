@@ -1,8 +1,9 @@
-Aqui está uma versão otimizada para o README.md do seu GitHub. Removi os caminhos de arquivo locais (que só funcionam na sua máquina) e substituí por links relativos do repositório, além de usar uma formatação mais profissional com badges e ícones.
-------------------------------
 🍕 Pizza Delivery - Monorepo
+------------------------------
+
 Este projeto é um sistema de delivery de pizzaria completo, composto por um frontend web (React) e um backend API (Node.js).
 O fluxo abrange desde a navegação no catálogo e personalização de pizzas até o checkout com integração de CEP e histórico de pedidos.
+
 ------------------------------
 🚀 Tecnologias
 
