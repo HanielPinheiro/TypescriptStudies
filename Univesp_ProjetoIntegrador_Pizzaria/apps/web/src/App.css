@@ -290,6 +290,12 @@
   color: var(--brand2);
 }
 
+.hero__cardActions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-start;
+}
+
 .section {
   padding: 48px 0;
 }

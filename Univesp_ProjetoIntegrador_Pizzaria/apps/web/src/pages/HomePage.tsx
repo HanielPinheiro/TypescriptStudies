@@ -173,6 +173,21 @@ export function HomePage() {
     closePizzaBuilder();
   }
 
+  function buyPromoPizza() {
+    if (!pizzaCategoryId || !pizzaBase || pizzaFlavors.length === 0) {
+      setSelectedCategory("pizzas");
+      document
+        .getElementById("cardapio")
+        ?.scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    const bacon = pizzaFlavors.find((p) =>
+      p.name.toLowerCase().includes("bacon"),
+    );
+    openPizzaBuilder(bacon?.id);
+  }
+
   const products = useMemo(() => {
     if (selectedCategory === "all") return menu.products;
     const category = menu.categories.find((c) => c.slug === selectedCategory);
@@ -293,10 +308,10 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="hero__card" aria-hidden="true">
+          <div className="hero__card">
             <img
               className="hero__image"
-              alt=""
+              alt="Pizza em destaque"
               src="/images/pizzas/hero-pizza.jpg"
               loading="lazy"
               decoding="async"
@@ -307,6 +322,15 @@ export function HomePage() {
                 Bacon com cheddar + Refrigerante 2L
               </div>
               <div className="hero__cardPrice">R$ 59,90</div>
+              <div className="hero__cardActions">
+                <button
+                  type="button"
+                  className="btn btn--small"
+                  onClick={buyPromoPizza}
+                >
+                  Comprar
+                </button>
+              </div>
             </div>
           </div>
         </div>
